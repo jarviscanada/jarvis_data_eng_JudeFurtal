@@ -29,3 +29,7 @@ bash crontab -e
 #add job to crontab
 * * * * * bash /home/centos/dev/jrvs/bootcamp/linux_sql/host_agent/scripts/host_usage.sh localhost 5432 host_agent postgres password > /tmp/host_usage.log
 ```
+## Architecture Diagram
+
+![Alt](https://github.com/jarviscanada/jarvis_data_eng_JudeFurtal/blob/feature/README/linux_sql/assets/arch_diagram.png)
+
