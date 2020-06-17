@@ -1,3 +1,4 @@
+--Create the host_info table to hold the host's hardware specifications
 CREATE TABLE IF NOT EXISTS PUBLIC.host_info
   (
      id               SERIAL PRIMARY KEY NOT NULL,
@@ -11,9 +12,7 @@ CREATE TABLE IF NOT EXISTS PUBLIC.host_info
      timestamp        VARCHAR NOT NULL
   );
 
---INSERT INTO host_info (id, hostname, cpu_number, cpu_architecture, cpu_model, cpu_mhz, l2_cache, total_mem, timestamp)
---VALUES (DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT);
-
+--Create the host_usage table to hold the host's resource usage data
 CREATE TABLE IF NOT EXISTS PUBLIC.host_usage
   (
      "timestamp"    TIMESTAMP NOT NULL,
@@ -25,6 +24,3 @@ CREATE TABLE IF NOT EXISTS PUBLIC.host_usage
      disk_available INT NOT NULL,
      FOREIGN KEY (host_id) REFERENCES host_info (id)
   );
-
---INSERT INTO host_usage ("timestamp", host_id, memory_free, cpu_idle, cpu_kernel, disk_io, disk_available)
---VALUES (DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT);
