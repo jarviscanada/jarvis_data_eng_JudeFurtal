@@ -60,7 +60,7 @@ The second table is called `host_usage` and it contains all the data pertaining 
 
 # Script Description
 
-- `psql_docker.sh`: When the script is executed it allows for three options. The first option is to create a psql docker container with the given username and password. The second option is to start a stopped psql docker container. Finally, the third option allows to stop a running psql docker container.
+- [psql_docker.sh](https://github.com/jarviscanada/jarvis_data_eng_JudeFurtal/blob/develop/linux_sql/scripts/psql_docker.sh): When the script is executed it allows for three options. The first option is to create a psql docker container with the given username and password. The second option is to start a stopped psql docker container. Finally, the third option allows to stop a running psql docker container.
 
 - `host_info.sh`: This script is executed only once for each node during installation time. It collects all the hardware specifications of the host system and then inserts it into the `host_info` table found the `host_agent` database.
 
