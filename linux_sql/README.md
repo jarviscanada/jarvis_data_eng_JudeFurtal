@@ -31,8 +31,6 @@ bash crontab -e
 ```
 ## Architecture Diagram
 
-![Alt](https://github.com/jarviscanada/jarvis_data_eng_JudeFurtal/blob/feature/README/linux_sql/assets/arch_diagram.png#center)
-
 <p align="center">
 <img src="https://github.com/jarviscanada/jarvis_data_eng_JudeFurtal/blob/feature/README/linux_sql/assets/arch_diagram.png#center">
 </p>
