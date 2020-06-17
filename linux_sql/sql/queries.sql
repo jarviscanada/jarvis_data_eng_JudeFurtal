@@ -1,3 +1,4 @@
+--query to group hosts by hardware info
 SELECT cpu_number,
        host_id,
        total_mem,
@@ -6,6 +7,7 @@ FROM host_info
 INNER JOIN host_usage ON host_info.id = host_usage.host_id
 ORDER BY total_mem DESC;
 
+--query to show average memory usage as a percentage
 SELECT host_id,
        hostname,
        date_trunc('hour', host_usage.timestamp) + date_part('minute', host_usage.timestamp)::int / 5 * interval '5 min' AS timestamp,
