@@ -32,7 +32,7 @@ bash crontab -e
 ## Architecture Diagram
 
 <p align="center">
-<img src="https://github.com/jarviscanada/jarvis_data_eng_JudeFurtal/blob/feature/README/linux_sql/assets/arch_diagram.png#center">
+<img src="https://github.com/jarviscanada/jarvis_data_eng_JudeFurtal/blob/develop/linux_sql/assets/arch_diagram.png">
 </p>
 
 The diagram above shows the architecture for the Linux cluster. All the Linux hosts are connected to each other in a network via the network switch and one of the host's contains the database. The agents execute the bash scripts on the individual hosts and the data is sent through the network to the database.
