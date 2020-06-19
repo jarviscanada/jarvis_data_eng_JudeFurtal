@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Linux Cluster Monitoring Agent is a cluster monitoring solution tool that is used by the Jarvis Linux Cluster Administration (LCA) team to monitor cluster resources such as CPU, Memory, etc. The tool is designed to operate on an arbitrary number of nodes/servers in a network, thus making it a scalable system. The monitoring agent records the hardware specifications of each node in the cluster and monitors the node's resource usage data every minute. The data collected from the agents are stored in a Relational Database Management System (RDBMS) database. The data stored the in the database can be used by the LCA team to generate usage reports and plan future resource strategies, such as adding/removing nodes or upgrading hardware on assets. Finally, if the LCA team decides to grow their cluster size, the Linux Cluster Monitoring Agent can be distributed to all the new nodes and can begin collecting data instantly. This shows proves that the Linux Cluster Monitoring Agent is flexible, reliable, and fully scalable.
+The Linux Cluster Monitoring Agent is a cluster monitoring solution tool that is used by the Jarvis Linux Cluster Administration (LCA) team to monitor cluster resources such as CPU, Memory, etc. The tool is designed to operate on an arbitrary number of nodes/servers in a network, thus making it a scalable system. The monitoring agent records the hardware specifications of each node in the cluster and monitors the node's resource usage data every minute. The data collected from the agents are stored in a Relational Database Management System (RDBMS) database. The data stored in the database can be used by the LCA team to generate usage reports and plan future resource strategies, such as adding/removing nodes or upgrading hardware on assets. Finally, if the LCA team decides to grow their cluster size, the Linux Cluster Monitoring Agent can be distributed to all the new nodes and can begin collecting data instantly. This proves that the Linux Cluster Monitoring Agent is flexible, reliable, and fully scalable.
 
 ## Quick Start
 - Start a psql instance using psql_docker.sh
@@ -62,13 +62,13 @@ The second table is called `host_usage` and it contains all the data pertaining 
 
 - [psql_docker.sh](https://github.com/jarviscanada/jarvis_data_eng_JudeFurtal/blob/develop/linux_sql/scripts/psql_docker.sh): When the script is executed it allows for three options. The first option is to create a psql docker container with the given username and password. The second option is to start a stopped psql docker container. Finally, the third option allows to stop a running psql docker container.
 
-- [host_info.sh](https://github.com/jarviscanada/jarvis_data_eng_JudeFurtal/blob/develop/linux_sql/scripts/host_info.sh): This script is executed only once for each node during installation time. It collects all the hardware specifications of the host system and then inserts it into the `host_info` table found the `host_agent` database.
+- [host_info.sh](https://github.com/jarviscanada/jarvis_data_eng_JudeFurtal/blob/develop/linux_sql/scripts/host_info.sh): This script is executed only once for each node during installation time. It collects all the hardware specifications of the host system and then inserts it into the `host_info` table found in the `host_agent` database.
 
 - [host_usage.sh](https://github.com/jarviscanada/jarvis_data_eng_JudeFurtal/blob/develop/linux_sql/scripts/host_usage.sh): This script is executed every minute by the crontab job. It collects all the current resource usage data from the host system and then inserts them into the `host_usage` table found in the `host_agent` database.
 
 - `crontab`: A program used to execute jobs in a specific time/schedule. It is used to run the `host_usage.sh` script every minute.
 
-- [queries.sql](https://github.com/jarviscanada/jarvis_data_eng_JudeFurtal/blob/develop/linux_sql/sql/queries.sql): The LCA team may want to manage the cluster in a more efficient way or they might need to plan for future resources. This can be done effectively by getting data based on which CPUs have the largest memory size, which hosts use the most memory and if there are any potential node failures.
+- [queries.sql](https://github.com/jarviscanada/jarvis_data_eng_JudeFurtal/blob/develop/linux_sql/sql/queries.sql): The LCA team may want to manage the cluster in a more efficient way or they might need to plan for future resources. This can be done effectively by getting data based on which host has the largest memory size, which host uses the most memory and if there are any potential node failures.
 
 # Usage
 
@@ -120,7 +120,7 @@ cat /tmp/host_usage.log
 ```
 5. queries.sql Usage
 
-To obtain certain data such as which CPUs have the largest memory size or which host has the most free memory, can be accomplished by running the `queries.sql` using psql. Information from these queries can be used for cluster management and future resource planning.
+To obtain certain data such as which host has the largest memory size or which host has the most free memory, can be accomplished by running the `queries.sql` using psql. Information from these queries can be used for cluster management and future resource planning.
 
 ```sh
 #Use psql to execute the queries.sql file to obtain cluster data
