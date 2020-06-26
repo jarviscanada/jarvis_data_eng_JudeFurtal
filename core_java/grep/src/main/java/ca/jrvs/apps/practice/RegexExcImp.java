@@ -1,61 +1,68 @@
 package ca.jrvs.apps.practice;
 
 import java.util.regex.*;
-import java.util.Scanner;
-import java.io.PrintStream;
+import java.lang.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RegexExcImp implements RegexExc{
 
+  private final Logger logger = LoggerFactory.getLogger(RegexExcImp.class);
+
+  /**
+   * return true if filename extension is jpg or jpeg (case insensitive)
+   * @param filename
+   * @return
+   */
   @Override
   public boolean matchJpeg(String filename) {
 
-    Pattern p1 = Pattern.compile(".*\\.jpg");
-    Pattern p2 = Pattern.compile(".*\\.jpeg");
+    Pattern pattern1 = Pattern.compile(".*\\.jpg");
+    Pattern pattern2 = Pattern.compile(".*\\.jpeg");
 
-    Matcher m1 = p1.matcher(filename);
-    Matcher m2 = p2.matcher(filename);
+    Matcher matcher1 = pattern1.matcher(filename);
+    Matcher matcher2 = pattern2.matcher(filename);
 
-    if(m1.matches() || m2.matches()) {
+    if(matcher1.matches() || matcher2.matches()) {
+      logger.info("Inputted string matches either .jpg or .jpeg");
       return true;
     }
     else {
+      logger.info("Inputted string did not match regex");
       return false;
     }
   }
 
+  /**
+   * return true if ip is valid
+   * to simplify the problem, IP address range is from 0.0.0.0 to 999.999.999.999
+   * @param ip
+   * @return
+   */
   @Override
   public boolean matchIP(String ip) {
 
-    Pattern p = Pattern.compile("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}");
-    Matcher m = p.matcher(ip);
-    boolean b = m.matches();
-    return b;
+    Pattern patternIp = Pattern.compile("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}");
+    Matcher matcher = patternIp.matcher(ip);
+    boolean result = matcher.matches();
+    logger.info("Inputted String has been checked to see if it matches the regex.");
+    return result;
 
   }
 
+  /**
+   * return true if line is empty (e.g empty, white space, tabs, etc..)
+   * @param line
+   * @return
+   */
   @Override
   public boolean isEmptyLine(String line) {
 
-    Pattern p = Pattern.compile("\\s*");
-    Matcher m = p.matcher(line);
-    boolean b = m.matches();
-    return b;
-
-  }
-
-  public static void main(String[] args){
-
-    /*Scanner input = new Scanner(System.in);
-    PrintStream output = System.out;
-
-    output.println("what is the line?");
-    String line = input.next();*/
-
-    boolean result;
-    RegexExcImp regex = new RegexExcImp();
-
-    result = regex.isEmptyLine("  ");
-    System.out.println(result);
+    Pattern patternLine = Pattern.compile("\\s*");
+    Matcher matcher = patternLine.matcher(line);
+    boolean result = matcher.matches();
+    logger.info("Inputted String has been checked to see if it contains white spaces.");
+    return result;
 
   }
 
