@@ -1,14 +1,21 @@
 package ca.jrvs.apps.grep;
 
-import java.io.*;
-import java.lang.reflect.Array;
-import java.util.*;
-import java.util.regex.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JavaGrepImp implements JavaGrep{
+public class JavaGrepImp implements JavaGrep {
 
   private final Logger logger = LoggerFactory.getLogger(JavaGrep.class);
 
@@ -16,8 +23,8 @@ public class JavaGrepImp implements JavaGrep{
   private String rootPath;
   private String outFile;
 
-  public static void main(String[] args){
-    if(args.length != 3){
+  public static void main(String[] args) {
+    if (args.length != 3) {
       throw new IllegalArgumentException("USAGE: JavaGrep regex rootPath outFile");
     }
 
@@ -29,97 +36,48 @@ public class JavaGrepImp implements JavaGrep{
     javaGrepImp.setRootPath(args[1]);
     javaGrepImp.setOutFile(args[2]);
 
-    try{
+    try {
       javaGrepImp.process();
-    }
-    catch (Exception ex){
+    } catch (Exception ex) {
       javaGrepImp.logger.error(ex.getMessage(), ex);
     }
 
-    /////////////////////////////////////////////////////////
-
-    /*JavaGrepImp test = new JavaGrepImp();
-
-    /*Scanner input = new Scanner(System.in);
-    System.out.println("What is the regex?");
-    String reg = input.next();
-    //System.out.println(reg);
-    test.regex = reg;
-    //System.out.println(test.regex);
-
-    //System.out.println("What is file directory?");
-    String path = "/home/centos/Practice/grep_test";
-
-    List<File> list = test.listFiles(path);
-    //System.out.println("The name of the file is: " + list.get(0).toString());
-    //System.out.println("The name of the file is: " + list.get(1).toString());
-
-    List<String> outLines = test.readLines(list.get(0));
-    System.out.println("The file contains:");
-    System.out.println(outLines.get(0));
-
-    String line = outLines.get(0);
-
-    boolean result = test.containsPattern(line);
-    System.out.println(result);*/
-
-    /*List<String> lines = new ArrayList<String>();
-    lines.add("Hello");
-    lines.add("World!");
-
-    try {
-      test.writeToFile(lines);
-    }
-    catch(IOException e){
-      System.out.println(e.getMessage());
-    }*/
-
-    /*JavaGrepImp javaGrepImp = new JavaGrepImp();
-    javaGrepImp.setRegex(".*");
-    javaGrepImp.setRootPath("/home/centos/Practice/grep_test/");
-    javaGrepImp.setOutFile("output.txt");
-
-    try{
-      javaGrepImp.process();
-    }
-    catch (Exception ex){
-      System.out.println(ex.getMessage());
-    }*/
-
   }
 
+  /**
+   * Top level search workflow used to automate the regex matching process
+   *
+   * @throws IOException
+   */
   @Override
   public void process() throws IOException {
 
     List<String> matchedLines = new ArrayList<String>();
     List<File> files;
 
-    //JavaGrepImp run = new JavaGrepImp();
-
     files = this.listFiles(this.rootPath);
 
-    for(int i = 0; i < files.size(); i++){
-
+    for (int i = 0; i < files.size(); i++) {
       List<String> lines;
-
       lines = this.readLines(files.get(i));
 
-      for(int j = 0; j < lines.size(); j++){
-
+      for (int j = 0; j < lines.size(); j++) {
         String line = lines.get(j);
-
-        if(this.containsPattern(line)){
+        if (this.containsPattern(line)) {
           matchedLines.add(line);
         }
-
       }
-
     }
-
+    logger.info("Regex matching process successfully completed.");
     this.writeToFile(matchedLines);
-
   }
 
+  /**
+   * Traverse a given directory and return all files
+   *
+   * @param rootDir input directory
+   * @return files under the rootDir
+   */
   @Override
   public List<File> listFiles(String rootDir) {
 
@@ -127,84 +85,85 @@ public class JavaGrepImp implements JavaGrep{
 
     File[] files = new File(rootDir).listFiles();
 
-    for(File file : files){
-      if(file.isFile()){
+    for (File file : files) {
+      if (file.isFile()) {
         fileList.add(file);
       }
     }
-
+    logger.info("All files returned for given directory.");
     return fileList;
   }
 
+  /**
+   * Read a file and return all the lines
+   *
+   * @param inputFile file to be read
+   * @return Lines
+   * @throws IllegalArgumentException if a inputFile is not a file
+   */
   @Override
   public List<String> readLines(File inputFile) {
 
     List<String> lines = new ArrayList<String>();
 
-    if(inputFile.exists()) {
-
+    if (inputFile.exists()) {
       try {
-
         BufferedReader in = new BufferedReader(new FileReader(inputFile));
         String line;
 
         while ((line = in.readLine()) != null) {
           lines.add(line);
         }
-
-      }
-      catch (IOException e){
+      } catch (IOException e) {
         logger.error(e.getMessage());
       }
-
+      logger.info("All lines returned for the file.");
       return lines;
 
-    }
-    else{
+    } else {
       throw new IllegalArgumentException("The inputFile is not a file.");
     }
   }
 
+  /**
+   * check if a line contains the regex pattern (passed by user)
+   *
+   * @param line input string
+   * @return true if there is a match
+   */
   @Override
   public boolean containsPattern(String line) {
 
-    //System.out.println(this.regex);
-    //System.out.println(line);
-
     String myRegex = this.regex;
-    //System.out.println(myRegex);
-    String regex = ".*\\.jpg";
-    //System.out.println(regex);
-
-    boolean  val = myRegex.equals(regex);
-    //System.out.println(val);
-
     Pattern p = Pattern.compile(myRegex);
     Matcher m = p.matcher(line);
     boolean b = m.matches();
+    logger.info("Pattern checking is complete.");
     return b;
-
   }
 
+  /**
+   * Write lines to a file
+   *
+   * @param lines matched line
+   * @throws IOException if write failed
+   */
   @Override
   public void writeToFile(List<String> lines) throws IOException {
 
     File outputFile = new File(this.rootPath + this.outFile);
     PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(outputFile)));
 
-    for(int i = 0; i < lines.size(); i++){
-
+    for (int i = 0; i < lines.size(); i++) {
       String line = lines.get(i);
       out.print(line);
       out.print("\n");
-
     }
 
-    System.out.println("File write successful!");
-
+    logger.info("Matched lines are printed to the file");
+    //flush and close the stream
     out.flush();
     out.close();
-
   }
 
   @Override
