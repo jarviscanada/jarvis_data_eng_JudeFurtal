@@ -19,9 +19,9 @@ public class JDBCExecutor {
       Connection connection = dcm.getConnection();
       OrderDAO orderDAO = new OrderDAO(connection);
       Order order = orderDAO.findById(1000);
-      System.out.println(order);
+      logger.info(order.toString());
     } catch (SQLException e) {
-      logger.error(e.getMessage());
+      logger.error("Error while accessing database", e);
     }
 
   }

@@ -33,7 +33,7 @@ public class JavaGrepLambdaImp extends JavaGrepImp {
     try {
       javaGrepLambdaImp.process();
     } catch (Exception e) {
-      javaGrepLambdaImp.logger.error(e.getMessage());
+      javaGrepLambdaImp.logger.error("Error while processing pattern matching.", e);
     }
 
   }
@@ -55,7 +55,7 @@ public class JavaGrepLambdaImp extends JavaGrepImp {
         Stream<String> stream = Files.lines(Paths.get(inputFile.getAbsolutePath()));
         stream.forEach(lines::add);
       } catch (IOException e) {
-        logger.error(e.getMessage());
+        logger.error("Error while reading from the file.", e);
       }
 
       logger.info("File has been read and all lines have been returned.");

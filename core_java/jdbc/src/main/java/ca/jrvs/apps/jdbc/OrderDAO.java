@@ -79,8 +79,8 @@ public class OrderDAO extends DataAccessObject<Order> {
       }
       order.setOrderLines(Lines);
     } catch (SQLException e) {
-      logger.error(e.getMessage());
-      throw new RuntimeException(e);
+      logger.error("Error while accessing database", e);
+      throw new RuntimeException("Error while accessing database", e);
     }
     return order;
   }

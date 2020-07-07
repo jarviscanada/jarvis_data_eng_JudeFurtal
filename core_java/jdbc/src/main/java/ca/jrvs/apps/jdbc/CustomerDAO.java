@@ -64,8 +64,8 @@ public class CustomerDAO extends DataAccessObject<Customer> {
       }
 
     } catch (SQLException e) {
-      logger.error(e.getMessage());
-      throw new RuntimeException(e);
+      logger.error("Error while accessing database", e);
+      throw new RuntimeException("Error while accessing database", e);
     }
 
     return customer;
@@ -88,8 +88,8 @@ public class CustomerDAO extends DataAccessObject<Customer> {
     try {
       this.connection.setAutoCommit(false);
     } catch (SQLException e) {
-      logger.error(e.getMessage());
-      throw new RuntimeException(e);
+      logger.error("Error while accessing database", e);
+      throw new RuntimeException("Error while accessing database", e);
     }
 
     try {
@@ -116,12 +116,12 @@ public class CustomerDAO extends DataAccessObject<Customer> {
       try {
         this.connection.rollback();
       } catch (SQLException sqle) {
-        logger.error(sqle.getMessage());
-        throw new RuntimeException(sqle);
+        logger.error("Error while accessing database", sqle);
+        throw new RuntimeException("Error while accessing database", sqle);
       }
 
-      logger.error(e.getMessage());
-      throw new RuntimeException(e);
+      logger.error("Error while accessing database", e);
+      throw new RuntimeException("Error while accessing database", e);
     }
     return customer;
 
@@ -151,8 +151,8 @@ public class CustomerDAO extends DataAccessObject<Customer> {
       return this.findById(id);
 
     } catch (SQLException e) {
-      logger.error(e.getMessage());
-      throw new RuntimeException(e);
+      logger.error("Error while accessing database", e);
+      throw new RuntimeException("Error while accessing database", e);
     }
 
   }
@@ -171,8 +171,8 @@ public class CustomerDAO extends DataAccessObject<Customer> {
       statement.execute();
 
     } catch (SQLException e) {
-      logger.error(e.getMessage());
-      throw new RuntimeException(e);
+      logger.error("Error while accessing database", e);
+      throw new RuntimeException("Error while accessing database", e);
     }
 
   }

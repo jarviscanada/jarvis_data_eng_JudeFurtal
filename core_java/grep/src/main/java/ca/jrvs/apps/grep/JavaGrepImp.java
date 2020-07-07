@@ -39,7 +39,7 @@ public class JavaGrepImp implements JavaGrep {
     try {
       javaGrepImp.process();
     } catch (Exception ex) {
-      javaGrepImp.logger.error(ex.getMessage(), ex);
+      javaGrepImp.logger.error("Error while processing pattern matching.", ex);
     }
 
   }
@@ -115,7 +115,7 @@ public class JavaGrepImp implements JavaGrep {
           lines.add(line);
         }
       } catch (IOException e) {
-        logger.error(e.getMessage());
+        logger.error("Error while reading from the file.", e);
       }
       logger.info("All lines returned for the file.");
       return lines;
@@ -160,7 +160,7 @@ public class JavaGrepImp implements JavaGrep {
       out.print("\n");
     }
 
-    logger.info("Matched lines are printed to the file");
+    logger.info("Matched lines are printed to the file.");
     //flush and close the stream
     out.flush();
     out.close();
