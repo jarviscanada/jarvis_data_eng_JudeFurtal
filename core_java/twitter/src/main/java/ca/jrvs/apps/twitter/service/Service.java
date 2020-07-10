@@ -1,12 +1,10 @@
-/*
 package ca.jrvs.apps.twitter.service;
 
-import ca.jrvs.apps.twitter.model.Tweet;
+import ca.jrvs.apps.twitter.dao.model.Tweet;
 import java.util.List;
 
 public interface Service {
 
-  */
 /**
    * Validate and post a user input Tweet
    *
@@ -14,12 +12,12 @@ public interface Service {
    * @return created tweet
    *
    * @throws IllegalArgumentException if text exceed max number of allowed characters or lat/long out of range
-   *//*
+   */
 
   Tweet postTweet(Tweet tweet);
 
 
-  */
+
 /**
    * Search a tweet by ID
    *
@@ -28,11 +26,11 @@ public interface Service {
    * @return Tweet object which is returned by the Twitter API
    *
    * @throws IllegalArgumentException if id or fields param is invalid
-   *//*
+   */
 
   Tweet showTweet(String id, String[] fields);
 
-  */
+
 /**
    * Delete Tweet(s) by id(s).
    *
@@ -40,8 +38,8 @@ public interface Service {
    * @return A list of Tweets
    *
    * @throws IllegalArgumentException if one of the IDs is invalid.
-   *//*
+   */
 
   List<Tweet> deleteTweets(String[] ids);
 
-}*/
+}
