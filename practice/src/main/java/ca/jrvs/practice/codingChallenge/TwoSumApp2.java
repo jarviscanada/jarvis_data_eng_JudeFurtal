@@ -2,11 +2,15 @@ package ca.jrvs.practice.codingChallenge;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * URL: https://www.notion.so/Two-Sum-c1f3d59975394a839db09977706ea539
  */
 public class TwoSumApp2 {
+
+  private final Logger logger = LoggerFactory.getLogger(TwoSumApp2.class);
 
   /**
    * Analysis: time complexity is 0(n) because the data is stored in a Map. This means that the
@@ -19,6 +23,7 @@ public class TwoSumApp2 {
    */
   public int[] twoSum(int[] nums, int target) {
 
+    boolean found = false;
     int[] result = new int[2];
     Map<Integer, Integer> table = new HashMap<Integer, Integer>();
     for (int i = 0; i < nums.length; i++) {
@@ -33,9 +38,16 @@ public class TwoSumApp2 {
         int secondNum = j;
         result[0] = firstNum;
         result[1] = secondNum;
+        found = true;
       }
     }
-    return result;
+    if(found){
+      logger.info("Two sum solution found");
+      return result;
+    }
+    else{
+      throw new IllegalArgumentException("Two sum solution not found for inputted arguments");
+    }
   }
 
 }
