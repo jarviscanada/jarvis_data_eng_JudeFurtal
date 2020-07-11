@@ -38,10 +38,10 @@ public class TwitterService implements Service{
     //Tweet tweetResult2;
     //String[] strings = {"id"};
     List<Tweet> tweetResult3;
-    String[] ids = {"1281366277450272768"};
+    String[] ids = {"1282016269152202756"};
 
     //tweetResult =twitterService.postTweet(tweetPost);
-    //tweetResult2 = twitterService.showTweet("1281366277450272768", strings);
+    //tweetResult2 = twitterService.showTweet("1282016269152202756", strings);
     //System.out.println(tweetResult2.getText());
     tweetResult3 = twitterService.deleteTweets(ids);
     System.out.println(tweetResult3.get(0).getText());
