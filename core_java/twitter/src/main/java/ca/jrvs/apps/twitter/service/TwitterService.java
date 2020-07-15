@@ -6,9 +6,12 @@ import ca.jrvs.apps.twitter.dao.Util.TweetUtil;
 import ca.jrvs.apps.twitter.dao.helper.HttpHelper;
 import ca.jrvs.apps.twitter.dao.helper.TwitterHttpHelper;
 import ca.jrvs.apps.twitter.dao.model.Tweet;
+import ca.jrvs.apps.twitter.example.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 public class TwitterService implements Service{
 
@@ -19,7 +22,7 @@ public class TwitterService implements Service{
     this.dao = dao;
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws JsonProcessingException {
 
     String consumerKey = System.getenv("consumerKey");
     String consumerSecret = System.getenv("consumerSecret");
@@ -35,16 +38,18 @@ public class TwitterService implements Service{
 
     //Tweet tweetPost = TweetUtil.buildTweet("Testing", 1,1);
     //Tweet tweetResult;
-    //Tweet tweetResult2;
-    //String[] strings = {"id"};
-    List<Tweet> tweetResult3;
-    String[] ids = {"1282016269152202756"};
+    Tweet tweetResult2;
+    String[] fields = {"id","text","retweet_count"};
+    //List<Tweet> tweetResult3;
+    //String[] ids = {"1282016269152202756"};
 
     //tweetResult =twitterService.postTweet(tweetPost);
-    //tweetResult2 = twitterService.showTweet("1282016269152202756", strings);
-    //System.out.println(tweetResult2.getText());
-    tweetResult3 = twitterService.deleteTweets(ids);
-    System.out.println(tweetResult3.get(0).getText());
+    //System.out.println(JsonParser.toJson(tweetResult,true,false));
+    tweetResult2 = twitterService.showTweet("1282062894209826824", fields);
+    System.out.println(tweetResult2.getText());
+    System.out.println(JsonParser.toJson(tweetResult2, true, false));
+    //tweetResult3 = twitterService.deleteTweets(ids);
+    //System.out.println(tweetResult3.get(0).getText());
 
   }
 
@@ -92,7 +97,57 @@ public class TwitterService implements Service{
       }
     }
 
-    return (Tweet) dao.findById(id);
+    if(StringUtils.isEmpty(fields)){
+      return (Tweet) dao.findById(id);
+    }
+    else{
+      Tweet tweet = (Tweet) dao.findById(id);
+      Tweet result = new Tweet();
+      result.setCreated_at(null);
+      result.setId(null);
+      result.setId_str(null);
+      result.setText(null);
+      result.setEntities(null);
+      result.setCoordinates(null);
+      result.setRetweet_count(null);
+      result.setFavorite_count(null);
+      result.setFavorited(null);
+      result.setRetweeted(null);
+
+      for(int i = 0; i < fields.length; i++){
+        if(fields[i].equals("created_at")){
+          result.setCreated_at(tweet.getCreated_at());
+        }
+        else if(fields[i].equals("id")){
+          result.setId(tweet.getId());
+        }
+        else if(fields[i].equals("id_str")){
+          result.setId_str(tweet.getId_str());
+        }
+        else if(fields[i].equals("text")){
+          result.setText(tweet.getText());
+        }
+        else if(fields[i].equals("entities")){
+          result.setEntities(tweet.getEntities());
+        }
+        else if(fields[i].equals("coordinates")){
+          result.setCoordinates(tweet.getCoordinates());
+        }
+        else if(fields[i].equals("retweet_count")){
+          result.setRetweet_count(tweet.getRetweet_count());
+        }
+        else if(fields[i].equals("favorite_count")){
+          result.setFavorite_count(tweet.getFavorite_count());
+        }
+        else if(fields[i].equals("favorited")){
+          result.setFavorited(tweet.isFavorited());
+        }
+        else if(fields[i].equals("retweeted")){
+          result.setRetweeted(tweet.isRetweeted());
+        }
+      }
+      return result;
+    }
 
   }
 
