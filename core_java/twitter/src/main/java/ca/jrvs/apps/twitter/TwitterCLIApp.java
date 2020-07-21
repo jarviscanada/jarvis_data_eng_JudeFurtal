@@ -11,16 +11,20 @@ import ca.jrvs.apps.twitter.example.JsonParser;
 import ca.jrvs.apps.twitter.service.Service;
 import ca.jrvs.apps.twitter.service.TwitterService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TwitterCLIApp {
 
-  public static final String USAGE = "USAGE: TwitterCLIApp post|show|delete [options]";
+  //create logger
+  private final Logger logger = LoggerFactory.getLogger(TwitterCLIApp.class);
 
+  //class instance variables
+  public static final String USAGE = "USAGE: TwitterCLIApp post|show|delete [options]";
   private Controller controller;
 
   //@Autowired
-  public TwitterCLIApp(Controller controller){
+  public TwitterCLIApp(Controller controller) {
     this.controller = controller;
   }
 
@@ -32,7 +36,8 @@ public class TwitterCLIApp {
     String tokenSecret = System.getenv("tokenSecret");
 
     //Create components and chain dependencies
-    HttpHelper httpHelper = new TwitterHttpHelper(consumerKey, consumerSecret, accessToken, tokenSecret);
+    HttpHelper httpHelper = new TwitterHttpHelper(consumerKey, consumerSecret, accessToken,
+        tokenSecret);
     CrdDao dao = new TwitterDao(httpHelper);
     Service service = new TwitterService(dao);
     Controller controller = new TwitterController(service);
@@ -40,34 +45,44 @@ public class TwitterCLIApp {
 
     //Start app
     app.run(args);
-
   }
 
-  public void run(String[] args){
-
-    if(args.length == 0){
+  /**
+   * This method is used to either post, show or delete tweet objects.
+   *
+   * @param args
+   */
+  public void run(String[] args) {
+    if (args.length == 0) {
+      logger.error("Invalid number of arguments");
       throw new IllegalArgumentException(USAGE);
     }
-    switch(args[0].toLowerCase()){
+    switch (args[0].toLowerCase()) {
       case "post":
         printTweet(controller.postTweet(args));
+        logger.info("Post action selected");
         break;
       case "show":
         printTweet(controller.showTweet(args));
+        logger.info("Show action selected");
         break;
       case "delete":
         controller.deleteTweet(args).forEach(this::printTweet);
+        logger.info("Delete action selected");
         break;
       default:
+        logger.error("Invalid user input");
         throw new IllegalArgumentException(USAGE);
     }
   }
 
-  private void printTweet(Tweet tweet){
-
-    try{
+  //Given a Tweet object, this private method will print its information in JSON format.
+  private void printTweet(Tweet tweet) {
+    try {
       System.out.println(JsonParser.toJson(tweet, true, false));
-    }catch(JsonProcessingException e){
+      logger.info("Tweet object successfully printed in JSON format");
+    } catch (JsonProcessingException e) {
+      logger.error("Error printing Tweet object");
       throw new RuntimeException("Unable to convert tweet object to string", e);
     }
   }

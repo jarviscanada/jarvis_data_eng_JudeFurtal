@@ -1,9 +1,6 @@
 package ca.jrvs.apps.twitter.dao;
 
-import ca.jrvs.apps.twitter.dao.Util.TweetUtil;
 import ca.jrvs.apps.twitter.dao.helper.HttpHelper;
-import ca.jrvs.apps.twitter.dao.helper.TwitterHttpHelper;
-import ca.jrvs.apps.twitter.dao.model.Coordinates;
 import ca.jrvs.apps.twitter.dao.model.Tweet;
 import ca.jrvs.apps.twitter.example.JsonParser;
 import java.io.IOException;
@@ -15,7 +12,7 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TwitterDao implements CrdDao<Tweet, String>{
+public class TwitterDao implements CrdDao<Tweet, String> {
 
   private final Logger logger = LoggerFactory.getLogger(TwitterDao.class);
 
@@ -34,56 +31,28 @@ public class TwitterDao implements CrdDao<Tweet, String>{
 
   private HttpHelper httpHelper;
 
-  public TwitterDao(HttpHelper httpHelper){
-
+  //Class constructor
+  public TwitterDao(HttpHelper httpHelper) {
     this.httpHelper = httpHelper;
-
   }
 
-  public static void main(String[] args) {
-
-    String consumerKey = System.getenv("consumerKey");
-    String consumerSecret = System.getenv("consumerSecret");
-    String accessToken = System.getenv("accessToken");
-    String tokenSecret = System.getenv("tokenSecret");
-
-    System.out.println(consumerKey + "|" + consumerSecret + "|" + accessToken + "|" + tokenSecret);
-
-    //Create components
-    HttpHelper httpHelper = new TwitterHttpHelper(consumerKey, consumerSecret, accessToken, tokenSecret);
-
-    TwitterDao DAO = new TwitterDao(httpHelper);
-
-    //Tweet entity = new Tweet();
-    //entity.setText("testing1");
-
-    Tweet entity = TweetUtil.buildTweet("TESTING TESTING", -79.3832, 43.6532);
-    System.out.println(entity.getCoordinates().getCoordinates().get(0));
-
-    Tweet result = DAO.create(entity);
-
-    System.out.println(result.getText());
-    System.out.println(result.getId_str());
-    System.out.println(result.getCoordinates().getCoordinates().get(0));
-
-    //Tweet result2 = DAO.findById("1281260687650586624");
-    //System.out.println(result2.getText());
-
-    //Tweet result3 = DAO.deleteById("1281260687650586624");
-    //System.out.println(result3.getText());
-
-
-  }
-
+  /**
+   * This method is used to create and return a Tweet object given a DTO/model.
+   *
+   * @param entity entity that to be created
+   * @return Tweet
+   */
   @Override
   public Tweet create(Tweet entity) {
 
     //Construct URI
     URI uri;
 
-    try{
+    try {
       uri = getPostUri(entity);
-    }catch(URISyntaxException | UnsupportedEncodingException e){
+      logger.info("Successfully obtained post URI");
+    } catch (URISyntaxException | UnsupportedEncodingException e) {
+      logger.error("Invalid tweet input");
       throw new IllegalArgumentException("Invalid tweet input", e);
     }
 
@@ -91,6 +60,7 @@ public class TwitterDao implements CrdDao<Tweet, String>{
     HttpResponse response = httpHelper.httpPost(uri);
 
     //Validate response and deser response to Tweet object
+    logger.info("parseResponseBody() method invoked");
     return parseResponseBody(response, HTTP_OK);
 
   }
@@ -98,55 +68,67 @@ public class TwitterDao implements CrdDao<Tweet, String>{
   /**
    * Check response status code Convert Response Entity to Tweet
    */
-  private Tweet parseResponseBody(HttpResponse response, Integer expectedStatusCode){
+  Tweet parseResponseBody(HttpResponse response, Integer expectedStatusCode) {
     Tweet tweet = null;
 
     //Check response status
     int status = response.getStatusLine().getStatusCode();
-    if(status != expectedStatusCode){
-      try{
-        System.out.println(EntityUtils.toString(response.getEntity()));
-      }catch(IOException e){
-        System.out.println("Response has no entity");
+    if (status != expectedStatusCode) {
+      try {
+        logger.info("Response has an entity: " + EntityUtils.toString(response.getEntity()));
+      } catch (IOException e) {
+        logger.error("Response has no entity");
       }
+      logger.error("Unexpected HTTP status");
       throw new RuntimeException("Unexpected HTTP status:" + status);
     }
 
-    if(response.getEntity() == null){
+    if (response.getEntity() == null) {
+      logger.error("Response body is empty");
       throw new RuntimeException("Empty response body");
     }
 
     //Convert Response Entity to str
     String jsonStr;
-    try{
+    try {
       jsonStr = EntityUtils.toString(response.getEntity());
-
-      System.out.println(jsonStr);
-
-    }catch(IOException e){
+      logger.info("Successfully converted entity to String");
+    } catch (IOException e) {
+      logger.error("Failed to convert entity to String");
       throw new RuntimeException("Failed to convert entity to String", e);
     }
 
     //Deser JSON string to Tweet object
-    try{
+    try {
       tweet = JsonParser.toObjectFromJson(jsonStr, Tweet.class);
-    }catch(IOException e){
+      logger.info("Successfully converted JSON str to Object");
+    } catch (IOException e) {
+      logger.error("Unable to convert JSON str to Object");
       throw new RuntimeException("Unable to convert JSON str to Object", e);
     }
 
+    logger.info("Tweet object successfully created");
     return tweet;
 
   }
 
+  /**
+   * This method finds and returns a Tweet object given its ID.
+   *
+   * @param s
+   * @return Tweet
+   */
   @Override
   public Tweet findById(String s) {
 
     //Construct URI
     URI uri;
 
-    try{
+    try {
       uri = getShowUri(s);
-    }catch(URISyntaxException | UnsupportedEncodingException e){
+      logger.info("Successfully obtained show URI");
+    } catch (URISyntaxException | UnsupportedEncodingException e) {
+      logger.info("Invalid tweet input");
       throw new IllegalArgumentException("Invalid tweet input", e);
     }
 
@@ -154,19 +136,28 @@ public class TwitterDao implements CrdDao<Tweet, String>{
     HttpResponse response = httpHelper.httpGet(uri);
 
     //Validate response and deser response to Tweet object
+    logger.info("parseResponseBody() method invoked");
     return parseResponseBody(response, HTTP_OK);
 
   }
 
+  /**
+   * This method deletes a Tweet object given its ID and then returns the deleted Tweet.
+   *
+   * @param s
+   * @return Tweet
+   */
   @Override
   public Tweet deleteById(String s) {
 
     //Construct URI
     URI uri;
 
-    try{
+    try {
       uri = getDeleteUri(s);
-    }catch(URISyntaxException | UnsupportedEncodingException e){
+      logger.info("Successfully obtained delete URI");
+    } catch (URISyntaxException | UnsupportedEncodingException e) {
+      logger.error("Invalid tweet input");
       throw new IllegalArgumentException("Invalid tweet input", e);
     }
 
@@ -174,46 +165,48 @@ public class TwitterDao implements CrdDao<Tweet, String>{
     HttpResponse response = httpHelper.httpPost(uri);
 
     //Validate response and deser response to Tweet object
+    logger.info("parseResponseBody() method invoked");
     return parseResponseBody(response, HTTP_OK);
 
   }
 
-  private URI getPostUri(Tweet tweet) throws URISyntaxException, UnsupportedEncodingException{
+  //Private method used to obtain post URI
+  private URI getPostUri(Tweet tweet) throws URISyntaxException, UnsupportedEncodingException {
 
     Double lon = tweet.getCoordinates().getCoordinates().get(0);
     Double lat = tweet.getCoordinates().getCoordinates().get(1);
 
+    //Accounts for texts that have spaces
     String text = tweet.getText().replaceAll("\\s", "%20");
 
-
-    String uriString = API_BASE_URI + POST_PATH + QUERY_SYM + "status" + EQUAL + text + AMPERSAND + "long" + EQUAL + lon + AMPERSAND + "lat" + EQUAL + lat;
+    String uriString =
+        API_BASE_URI + POST_PATH + QUERY_SYM + "status" + EQUAL + text + AMPERSAND + "long" + EQUAL
+            + lon + AMPERSAND + "lat" + EQUAL + lat;
     URI uri = new URI(uriString);
 
-
-    System.out.println(uriString);
-
+    logger.info("Successfully obtained post URI");
     return uri;
 
   }
 
-  private URI getShowUri(String s) throws URISyntaxException, UnsupportedEncodingException{
+  //Private method used to obtain show URI
+  private URI getShowUri(String s) throws URISyntaxException, UnsupportedEncodingException {
 
     String uriString = API_BASE_URI + SHOW_PATH + QUERY_SYM + "id" + EQUAL + s;
     URI uri = new URI(uriString);
 
-    System.out.println(uriString);
-
+    logger.info("Successfully obtained show URI");
     return uri;
 
   }
 
+  //Private method used to obtain delete URI
   private URI getDeleteUri(String s) throws URISyntaxException, UnsupportedEncodingException {
 
     String uriString = API_BASE_URI + DELETE_PATH + "/" + s + ".json";
     URI uri = new URI(uriString);
 
-    System.out.println(uriString);
-
+    logger.info("Successfully obtained delete URI");
     return uri;
 
   }

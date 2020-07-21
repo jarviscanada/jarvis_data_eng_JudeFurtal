@@ -6,7 +6,7 @@ import java.util.List;
 public interface Controller {
 
 
-/**
+  /**
    * Parse user argument and post a tweet by calling service classes
    *
    * @param args
@@ -17,7 +17,7 @@ public interface Controller {
   Tweet postTweet(String[] args);
 
 
-/**
+  /**
    * Parse user argument and search a tweet by calling service classes
    *
    * @param args
@@ -28,7 +28,7 @@ public interface Controller {
   Tweet showTweet(String[] args);
 
 
-/**
+  /**
    * Parse user argument and delete tweets by calling service classes
    *
    * @param args

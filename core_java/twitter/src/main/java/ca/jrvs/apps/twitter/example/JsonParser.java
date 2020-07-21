@@ -1,6 +1,5 @@
 package ca.jrvs.apps.twitter.example;
 
-import ca.jrvs.apps.twitter.dao.model.Tweet;
 import ca.jrvs.apps.twitter.example.dto.Company;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -8,11 +7,17 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class JsonParser {
 
+  //create logger
+  private static final Logger logger = LoggerFactory.getLogger(JsonParser.class);
+
   /**
    * Convert a java object to JSON string
+   *
    * @param object
    * @param prettyJson
    * @param includeNullValues
@@ -20,22 +25,27 @@ public class JsonParser {
    * @throws JsonProcessingException
    */
 
-  public static String toJson(Object object, boolean prettyJson, boolean includeNullValues) throws JsonProcessingException {
+  public static String toJson(Object object, boolean prettyJson, boolean includeNullValues)
+      throws JsonProcessingException {
 
     ObjectMapper m = new ObjectMapper();
 
-    if(!includeNullValues){
+    if (!includeNullValues) {
       m.setSerializationInclusion(Include.NON_NULL);
+      logger.info("Serialization inclusion set");
     }
-    if(prettyJson){
-        m.enable(SerializationFeature.INDENT_OUTPUT);
+    if (prettyJson) {
+      m.enable(SerializationFeature.INDENT_OUTPUT);
+      logger.info("Serialization feature enabled");
     }
+    logger.info("Successfully written as a string");
     return m.writeValueAsString(object);
 
   }
 
   /**
    * Parse JSON string to a object
+   *
    * @param json
    * @param clazz
    * @param <T>
@@ -47,16 +57,15 @@ public class JsonParser {
 
     ObjectMapper m = new ObjectMapper();
     m.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    logger.info("Successfully created as an object");
     return (T) m.readValue(json, clazz);
+
   }
 
   public static void main(String[] args) throws IOException {
 
-    /*Company company = toObjectFromJson(companyStr, Company.class);
-    System.out.println(toJson(company, true, false));*/
-
-    Tweet tweet = toObjectFromJson(tweetStr, Tweet.class);
-    System.out.println(toJson(tweet, true, false));
+    Company company = toObjectFromJson(companyStr, Company.class);
+    System.out.println(toJson(company, true, false));
 
   }
 
@@ -103,61 +112,6 @@ public class JsonParser {
       + "         \"amount\":0.63\n"
       + "      }\n"
       + "   ]\n"
-      + "}";
-
-  public static final String tweetStr = "{\n"
-      + "   \"created_at\":\"Mon Feb 18 21:24:39 +0000 2019\",\n"
-      + "   \"id\":1097607853932564480,\n"
-      + "   \"id_str\":\"1097607853932564480\",\n"
-      + "   \"text\":\"test with loc223\",\n"
-      + "   \"entities\":{\n"
-      + "      \"hashtags\":[\n"
-      + "         {\n"
-      + "            \"text\":\"documentation\",\n"
-      + "            \"indices\":[\n"
-      + "               211,\n"
-      + "               225\n"
-      + "            ]\n"
-      + "         },\n"
-      + "         {\n"
-      + "            \"text\":\"parsingJSON\",\n"
-      + "            \"indices\":[\n"
-      + "               226,\n"
-      + "               238\n"
-      + "            ]\n"
-      + "         },\n"
-      + "         {\n"
-      + "            \"text\":\"GeoTagged\",\n"
-      + "            \"indices\":[\n"
-      + "               239,\n"
-      + "               249\n"
-      + "            ]\n"
-      + "         }\n"
-      + "      ],\n"
-      + "      \"user_mentions\":[\n"
-      + "         {\n"
-      + "            \"name\":\"Twitter API\",\n"
-      + "            \"indices\":[\n"
-      + "               4,\n"
-      + "               15\n"
-      + "            ],\n"
-      + "            \"screen_name\":\"twitterapi\",\n"
-      + "            \"id\":6253282,\n"
-      + "            \"id_str\":\"6253282\"\n"
-      + "         }\n"
-      + "      ]\n"
-      + "   },\n"
-      + "   \"coordinates\":{\n"
-      + "      \"coordinates\":[\n"
-      + "         -75.14310264,\n"
-      + "         40.05701649\n"
-      + "      ],\n"
-      + "      \"type\":\"Point\"\n"
-      + "   },\n"
-      + "   \"retweet_count\":0,\n"
-      + "   \"favorite_count\":0,\n"
-      + "   \"favorited\":false,\n"
-      + "   \"retweeted\":false\n"
       + "}";
 
 }

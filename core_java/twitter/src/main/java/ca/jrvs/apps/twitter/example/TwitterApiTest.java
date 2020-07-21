@@ -39,11 +39,6 @@ public class TwitterApiTest {
     HttpResponse response = httpClient.execute(request);
     System.out.println(EntityUtils.toString(response.getEntity()));
 
-    /*System.out.println(CONSUMER_KEY);
-    System.out.println(CONSUMER_SECRET);
-    System.out.println(ACCESS_TOKEN);
-    System.out.println(TOKEN_SECRET);*/
-
   }
 
 }
