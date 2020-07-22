@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
+@org.springframework.stereotype.Service
 public class TwitterService implements Service {
 
   //create logger
@@ -16,7 +18,7 @@ public class TwitterService implements Service {
   //class private field
   private CrdDao dao;
 
-  //@Autowired
+  @Autowired
   public TwitterService(CrdDao dao) {
     this.dao = dao;
   }
