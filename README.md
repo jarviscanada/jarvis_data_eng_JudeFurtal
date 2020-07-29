@@ -1,75 +1,49 @@
-> Resume instructions:
-> - By default, your resume will be distributed via github. However, you will also need to generate a PDF version of it. Please follow the PDF styling requirements below.
-> - Run resume_pdf_generator.sh (requires docker) to generate a PDF version
-> - Please remove all quotes in this README file (e.g. any lines that start with `>`) once you update all sections.
-> - Note: `resume_pdf_generator.sh` will remove all markdown quotes automatically, but you should still remove quotes from the markdown file
-> - Resume instruction Notion page https://bit.ly/35Um9Y7
-> - For your reference, the original resume template file is in the Github repo [here](https://github.com/jarviscanada/jarvis_resume_builder/blob/master/resume_template.md)
-> - you will need to update the project description before the MCR.
-
 # Jude Furtal . Jarvis Consulting
 
->Use this section to introduce yourself, your academic and professional background, what excites you about the data engineering industry and some of your hobbies. 100-150 words
-Donec fermentum, lectus tempor lobortis egestas, dolor dolor rhoncus justo, id pharetra odio ligula quis odio. Morbi blandit id quam eget porttitor. Integer at ullamcorper dolor, at egestas turpis. Fusce ultricies justo tellus, a congue augue aliquet sit amet. Quisque ultrices dolor eu turpis malesuada interdum. Suspendisse in nisl et massa laoreet sodales. Nulla quis lectus sit amet velit finibus feugiat eget nec quam. Praesent eget nibh et diam mollis venenatis. Mauris mi eros, varius in elit ut, ornare commodo magna. Nullam lacinia sapien pulvinar cursus tincidunt. Nam neque magna, accumsan a mi vel, tempor tristique nisl. Maecenas accumsan dignissim.
+Recent engineering masters graduate from the Lassonde School of Engineering at York University who is curious, adaptable, enjoys learning, and excels in collaborating with others. Excellent knowledge of the software development cycle, object-oriented programming, and data structures & algorithms. Along with experience in Information Technology (IT), Agile/Scrum and backend development can be utilized for a Data Engineer position. Excited to learn and work on projects related to Data Engineering such as database management, desktop/web applications, server cluster monitoring systems and many more. Additional skills and hobbies include, public speaking, writing documentations, multi-tasking, creating artwork, and planning fun social events for communities.
 
 ## Skills
 
->Group your skills by level. Your skills can be anything software related (e.g. language, frameworks, methodologies, software, etc.). 
+**Proficient:** Java, Linux/Bash, RDBMS/SQL, Agile/Scrum, Git, GitHub, GitFlow, Data Structures & Algorithms
 
->**Proficient**: Keep the default skills. Add skills that you have learned from Jarvis projects and you are confident to work on in the future. You can also include the skills you learned outside Jarvis. You should have 8-12 skills and must not exceed one line in PDF version.
+**Competent:** Docker, JDBC, REST APIs, Mockito, Spring Framework, SpringBoot, Apache MAVEN
 
-**Proficient:** Java, Linux/Bash, RDBMS/SQL, Agile/Scrum, Git
-
->**Competent**:  Skills you learned from Jarvis projects but you are not confident to put into the proficient section. You can also include the skills you learned outside Jarvis. You should have no more than 12 skills and must not exceed one line in PDF version.
-
-**Competent:** 
-
->**Familiar**: Skills you have learned ourside Jarvis and you want to work on in the future. You should have no more than 12 skills and must not exceed one line in PDF version.
-
-**Familiar:** 
+**Familiar:** Java Script, HTML, Security/Encryption, Character Encoding, Virtual Machines
 
 ## Development Projects
 
->Update Github link. Please keep this markdown syntax as some HR system may strip hyperlinks.
+Project source code: [https://github.com/jarviscanada/jarvis_data_eng_JudeFurtal](https://github.com/jarviscanada/jarvis_data_eng_JudeFurtal)
 
-Project source code: [https://github.com/jarviscanada/jarvis_data_eng_demo](https://github.com/jarviscanada/jarvis_data_eng_demo)
-
->The project description allows hiring managers to understand your project and technologies you used(e.g. programing langauge, libraries, algorithms, hardwards, tools, etc.). The project description must start with an action verb (https://bit.ly/35Um9Y7)
-
->Use *Not started* or *in-progress* as a placeholder
-
-- **[Cluster Monitor](./linux_sql)**: Suspendisse a tincidunt odio. Suspendisse posuere luctus aliquet. Quisque magna tellus, tempor vitae arcu sed, volutpat scelerisque lacus. Aliquam varius pulvinar dapibus. Ut a tincidunt sem. Aenean sollicitudin fringilla erat ut imperdiet. Phasellus fermentum, enim vitae laoreet elementum, eros nisl hendrerit lorem.(40 words)
-- **[Core Java Apps](./core_java)**: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis efficitur.(30 words)
-- **[SpringBoot App](./springboot)**: Nam in ultrices elit, vitae imperdiet purus. Nulla facilisi. Duis eget dui in quam maximus efficitur. Sed commodo rhoncus lacus id commodo. Quisque sagittis in.
+- **[Cluster Monitor](./linux_sql)**: Implemented a Linux Cluster Monitoring tool to monitor cluster resources and usage. The tool is designed to operate on an arbitrary number of nodes/servers in a network and was developed using Bash, Docker, RDBMS, and SQL.
+- **[Core Java Apps](./core_java)**: Created three Core Java Applications that represent the foundation of data engineering. These applications highlight features such as lambdas/streams, regular expressions, JDBC, REST APIs, DAO, and Spring design patterns.
+- **[SpringBoot App](./springboot)**: In-progress
 - **[Cloud & DevOps](./cloud_devops)**: Not started
 - **[Hadoop](./hadoop)**: Not started
 - **[Spark/Scala](./spark)**:  Not started
 
 ## Professional Experiences
 
->The job description allows hiring managers to understand your job and technologies you used(e.g. programing langauge, libraries, algorithms, hardwards, tools, etc.). The description must be more than 25 words. If your experience is not software related, please focus on soft skills and achievements (e.g. team collaboration, problem solving, improvements, communication). Write your Jarvis role as a professional expereince rather than training.
 
-**Software Developer,  Jarvis, Toronto (2020-Present):** Donec mattis sed justo et sagittis. Vestibulum lacinia nulla ipsum. Curabitur imperdiet nibh vitae leo lacinia laoreet. Nullam accumsan, lectus ut maximus ultricies, augue justo egestas mi, vel bibendum felis. (30 words)
+**Software Developer,  Jarvis, Toronto (2020-Present):** Implemented various software applications using numerous development tools such as Java, Bash, SQL etc. Teamwork and communication skills were demonstrated when working with members in a Scrum team.
 
-**Tutor, XYZ, Toronto (2019-Present):** Suspendisse a tincidunt odio. Suspendisse posuere luctus aliquet. Quisque magna tellus, tempor vitae arcu sed, volutpat scelerisque lacus. Aliquam varius pulvinar dapibus. Ut a tincidunt sem. Aenean sollicitudin fringilla erat ut imperdiet. Phasellus fermentum, enim vitae laoreet elementum, eros nisl hendrerit lorem.(40 words)
+**Teaching Assistant, York University, Toronto (2017-2019):** Facilitated labs and tutorials for undergraduate engineering students. Public speaking skills were utilized when speaking to classes of over 30 students. Time management skills were used when grading assignments/tests and having them returned to students promptly.
+
+**Summer Student, Canadian Automobile Association, Thornhill (2016):** Worked in the Information Technology (IT) department. Was responsible for installing a batch job scheduling software (BMC Control-M) into the IT environment. Then trained the IT staff on how to operate the new scheduling software.
 
 ## Education & Academic Projects
 
-**XYZ University (2018-2020)**, Master of Engineering, Computer Engineering
+**York University (2017-2020)**, Master of Applied Science, Mechanical Engineering
 
-> 2-4 highlighted projects. Prioritize programming related project and describe the project and technologies. For non-technical project, focus on soft skills (e.g. reward, team collaboration, problem solving, improvements, communication). The description must be 30-40 words. 
+- **DESCENT Satellite Project:** Worked in a diverse team from design to implementation of two satellites for the DESCENT space mission. Developed software using the C programming language to measure the deployment length of the Electrodynamic Tether used for DESCENT.
 
-- **Web Application:** Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+- **ESSENCE Satellite Project:** Assigned one of the team lead positions for the ESSENCE space mission. Project management and leadership skills were utilized when leading and supporting all the undergraduate students working on the team.
 
-- **Robot Software:** Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+**York University (2012-2017)**, Bachelor of Engineering, Space Engineering
 
-**ABC University (2014-2018)**, Bachelor of Applied Science, Electrical & Computer Engineering
+- **Satellite Tracking Software:** Implemented a software application in Java to track high altitude satellites. The software reads positional data for a satellite in an Earth-centric coordinate system and then converts the positional information into a topocentric coordinate system used by ground station antennas.
 
-- **Snake Game:** Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+- **Solar Panels Efficiency Test:** Developed software in C to use an Arduino microcontroller to measure the efficiency of different solar panels. The software would record the voltage output from each set of solar panels and the results were then displayed to the screen.
 
 ## Certificates & Awards & Activities
 
-> Remove this section if you don't have any. Description is optional
-
-- Dean's List (2015, 2016): Ut enim ad minim veniam
-- Volunteer, ABC Food bank (2017): Ut enim ad minim veniam
+- Best Presenter Award, York University (2019): Gave the best presentation at the York Research Seminar
