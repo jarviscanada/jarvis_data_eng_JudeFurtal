@@ -23,7 +23,6 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_JudeFurtal
 
 ## Professional Experiences
 
-
 **Software Developer,  Jarvis, Toronto (2020-Present):** Implemented various software applications using numerous development tools such as Java, Bash, SQL etc. Teamwork and communication skills were demonstrated when working with members in a Scrum team.
 
 **Teaching Assistant, York University, Toronto (2017-2019):** Facilitated labs and tutorials for undergraduate engineering students. Public speaking skills were utilized when speaking to classes of over 30 students. Time management skills were used when grading assignments/tests and having them returned to students promptly.
