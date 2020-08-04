@@ -57,7 +57,6 @@ public class TwitterCLIApp {
    */
   public void run(String[] args) {
     if (args.length == 0) {
-      logger.error("Invalid number of arguments");
       throw new IllegalArgumentException(USAGE);
     }
     switch (args[0].toLowerCase()) {
@@ -74,7 +73,6 @@ public class TwitterCLIApp {
         logger.info("Delete action selected");
         break;
       default:
-        logger.error("Invalid user input");
         throw new IllegalArgumentException(USAGE);
     }
   }
@@ -85,7 +83,6 @@ public class TwitterCLIApp {
       System.out.println(JsonParser.toJson(tweet, true, false));
       logger.info("Tweet object successfully printed in JSON format");
     } catch (JsonProcessingException e) {
-      logger.error("Error printing Tweet object");
       throw new RuntimeException("Unable to convert tweet object to string", e);
     }
   }

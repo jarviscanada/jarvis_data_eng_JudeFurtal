@@ -56,7 +56,6 @@ public class TwitterDao implements CrdDao<Tweet, String> {
       uri = getPostUri(entity);
       logger.info("Successfully obtained post URI");
     } catch (URISyntaxException | UnsupportedEncodingException e) {
-      logger.error("Invalid tweet input");
       throw new IllegalArgumentException("Invalid tweet input", e);
     }
 
@@ -83,12 +82,10 @@ public class TwitterDao implements CrdDao<Tweet, String> {
       } catch (IOException e) {
         logger.error("Response has no entity");
       }
-      logger.error("Unexpected HTTP status");
       throw new RuntimeException("Unexpected HTTP status:" + status);
     }
 
     if (response.getEntity() == null) {
-      logger.error("Response body is empty");
       throw new RuntimeException("Empty response body");
     }
 
@@ -98,7 +95,6 @@ public class TwitterDao implements CrdDao<Tweet, String> {
       jsonStr = EntityUtils.toString(response.getEntity());
       logger.info("Successfully converted entity to String");
     } catch (IOException e) {
-      logger.error("Failed to convert entity to String");
       throw new RuntimeException("Failed to convert entity to String", e);
     }
 
@@ -107,7 +103,6 @@ public class TwitterDao implements CrdDao<Tweet, String> {
       tweet = JsonParser.toObjectFromJson(jsonStr, Tweet.class);
       logger.info("Successfully converted JSON str to Object");
     } catch (IOException e) {
-      logger.error("Unable to convert JSON str to Object");
       throw new RuntimeException("Unable to convert JSON str to Object", e);
     }
 
@@ -161,7 +156,6 @@ public class TwitterDao implements CrdDao<Tweet, String> {
       uri = getDeleteUri(s);
       logger.info("Successfully obtained delete URI");
     } catch (URISyntaxException | UnsupportedEncodingException e) {
-      logger.error("Invalid tweet input");
       throw new IllegalArgumentException("Invalid tweet input", e);
     }
 

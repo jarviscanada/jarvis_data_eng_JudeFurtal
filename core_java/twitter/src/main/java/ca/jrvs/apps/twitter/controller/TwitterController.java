@@ -35,7 +35,6 @@ public class TwitterController implements Controller {
   public Tweet postTweet(String[] args) {
 
     if (args.length != 3) {
-      logger.error("Invalid usage of the application");
       throw new IllegalArgumentException(
           "USAGE: TwitterCLIApp post \"tweet_text\" \"latitude:longitude\"");
     }
@@ -45,7 +44,6 @@ public class TwitterController implements Controller {
     String[] coordArray = coord.split(COORD_SEP);
 
     if (coordArray.length != 2 || StringUtils.isEmpty(tweet_txt)) {
-      logger.error("Invalid number of parameters for the location");
       throw new IllegalArgumentException(
           "Invalid location format\nUSAGE: TwitterCLIApp post \"tweet_text\" \"latitude:longitude\"");
     }
@@ -58,7 +56,6 @@ public class TwitterController implements Controller {
       lon = Double.parseDouble(coordArray[1]);
       logger.info("Location successfully set");
     } catch (Exception e) {
-      logger.error("Invalid format used for the location");
       throw new IllegalArgumentException(
           "Invalid location format\nUSAGE: TwitterCLIApp post \"tweet_text\" \"latitude:longitude\"",
           e);
@@ -80,7 +77,6 @@ public class TwitterController implements Controller {
   public Tweet showTweet(String[] args) {
 
     if (args.length != 3) {
-      logger.error("Invalid number of arguments");
       throw new IllegalArgumentException("USAGE: TwitterCLIApp show tweet_id [field1, field2]");
     }
 
@@ -89,7 +85,6 @@ public class TwitterController implements Controller {
     String[] fields = fieldArgs.split(COMMA);
 
     if (fields.length > 10) {
-      logger.error("Invalid number of arguments");
       throw new IllegalArgumentException("Options size exceeded limit");
     }
 
@@ -109,7 +104,6 @@ public class TwitterController implements Controller {
   public List<Tweet> deleteTweet(String[] args) {
 
     if (args.length != 2) {
-      logger.error("Invalid number of arguments");
       throw new IllegalArgumentException("USAGE: TwitterCLIApp delete [id1, id2,..]");
     }
 
@@ -117,7 +111,6 @@ public class TwitterController implements Controller {
     String[] ids = idArgs.split(COMMA);
 
     if (StringUtils.isEmpty(ids)) {
-      logger.error("Error: no ID(s) were provided");
       throw new IllegalArgumentException("ID(s) to delete are not provided");
     }
 

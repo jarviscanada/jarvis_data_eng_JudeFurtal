@@ -51,17 +51,14 @@ public class TwitterService implements Service {
     Double lat = tweet.getCoordinates().getCoordinates().get(1);
 
     if (text.length() > 140) {
-      logger.error("Tweet exceeds 140 characters");
       throw new IllegalArgumentException("Tweet exceeds 140 characters");
     }
 
     if ((lon > 180.0) || (lon < -180.0)) {
-      logger.error("Tweet coordinates are out of range");
       throw new IllegalArgumentException("Tweet coordinates are out of range");
     }
 
     if ((lat > 90.0) || (lat < -90.0)) {
-      logger.error("Tweet coordinates are out of range");
       throw new IllegalArgumentException("Tweet coordinates are out of range");
     }
 
@@ -155,7 +152,6 @@ public class TwitterService implements Service {
       try {
         Long ID = Long.parseLong(id);
       } catch (NumberFormatException e) {
-        logger.error("Invalid ID");
         throw new IllegalArgumentException("Invalid ID");
       }
       tweetList.add((Tweet) dao.deleteById(id));

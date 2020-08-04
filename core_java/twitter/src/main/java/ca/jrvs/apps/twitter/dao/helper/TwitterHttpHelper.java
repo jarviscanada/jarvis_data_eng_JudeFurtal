@@ -74,7 +74,6 @@ public class TwitterHttpHelper implements HttpHelper {
       return executeHttpRequest(HttpMethod.POST, uri, null);
 
     } catch (OAuthException | IOException e) {
-      logger.error("Failed HTTP POST execution");
       throw new RuntimeException("Failed to execute", e);
     }
 
@@ -92,7 +91,6 @@ public class TwitterHttpHelper implements HttpHelper {
       return executeHttpRequest(HttpMethod.GET, uri, null);
 
     } catch (OAuthException | IOException e) {
-      logger.error("Failed HTTP GET execution");
       throw new RuntimeException("Failed to execute", e);
     }
 
@@ -121,7 +119,6 @@ public class TwitterHttpHelper implements HttpHelper {
       return httpClient.execute(request);
 
     } else {
-      logger.error("Invalid HTTP method used");
       throw new IllegalArgumentException("Unknown HTTP method: " + method.name());
     }
   }
