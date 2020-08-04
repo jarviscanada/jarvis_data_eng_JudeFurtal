@@ -7,11 +7,17 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class JsonParser {
 
+  //create logger
+  private static final Logger logger = LoggerFactory.getLogger(JsonParser.class);
+
   /**
    * Convert a java object to JSON string
+   *
    * @param object
    * @param prettyJson
    * @param includeNullValues
@@ -19,22 +25,27 @@ public class JsonParser {
    * @throws JsonProcessingException
    */
 
-  public static String toJson(Object object, boolean prettyJson, boolean includeNullValues) throws JsonProcessingException {
+  public static String toJson(Object object, boolean prettyJson, boolean includeNullValues)
+      throws JsonProcessingException {
 
     ObjectMapper m = new ObjectMapper();
 
-    if(!includeNullValues){
+    if (!includeNullValues) {
       m.setSerializationInclusion(Include.NON_NULL);
+      logger.info("Serialization inclusion set");
     }
-    if(prettyJson){
-        m.enable(SerializationFeature.INDENT_OUTPUT);
+    if (prettyJson) {
+      m.enable(SerializationFeature.INDENT_OUTPUT);
+      logger.info("Serialization feature enabled");
     }
+    logger.info("Successfully written as a string");
     return m.writeValueAsString(object);
 
   }
 
   /**
    * Parse JSON string to a object
+   *
    * @param json
    * @param clazz
    * @param <T>
@@ -45,8 +56,10 @@ public class JsonParser {
   public static <T> T toObjectFromJson(String json, Class clazz) throws IOException {
 
     ObjectMapper m = new ObjectMapper();
-    //m.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    m.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    logger.info("Successfully created as an object");
     return (T) m.readValue(json, clazz);
+
   }
 
   public static void main(String[] args) throws IOException {
